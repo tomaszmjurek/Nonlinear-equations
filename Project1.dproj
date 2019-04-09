@@ -87,13 +87,6 @@
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="Funkcja\Win32\Debug\FunctionLibrary.dll">
-            <AssemblyName/>
-            <HintPath>Funkcja\Win32\Debug\FunctionLibrary.dll</HintPath>
-            <AssemblyTag>Funkcja\Win32\Debug\FunctionLibrary.dll</AssemblyTag>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
@@ -113,6 +106,7 @@
             <CfgParent>Base</CfgParent>
         </BuildConfiguration>
     </ItemGroup>
+    <ItemGroup/>
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>
         <Borland.ProjectType>Application</Borland.ProjectType>
@@ -126,12 +120,6 @@
                 <DeployFile LocalName="Win32\Debug\Project1.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Project1.exe</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Funkcja\Win32\Debug\FunctionLibrary.dll" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
