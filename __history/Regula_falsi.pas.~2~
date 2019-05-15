@@ -1,0 +1,65 @@
+unit Regula_falsi;
+
+interface
+
+function regulafalsi (var a,b  : Extended;
+                      var fatx : Extended;
+                      var st   : Integer) : Extended;
+
+type
+  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+
+var
+f : DLLFunction; //oznacza wczytan¹ funkcje
+
+implementation
+
+//METODA REGULA FALSI
+function regulafalsi (var a,b  : Extended;
+                      var fatx : Extended;
+                      var st   : Integer) : Extended;
+var sfa,sv    : Integer;
+    fa,fb,v,x : Extended;
+    DLL : THandle;
+begin
+  if a>=b
+    then st:=1
+    else begin
+           fa:=f(a);
+           if fa<0
+             then sfa:=-1
+             else if fa=0
+                    then sfa:=0
+                    else sfa:=1;
+           fb:=f(b);
+           if sfa*fb>0
+             then st:=2
+             else begin
+                    st:=0;
+                    x:=b-fb*(b-a)/(fb-fa);
+                    while (a<x) and (x<b) do
+                      begin
+                        v:=f(x);
+                        if v<0
+                          then sv:=-1
+                          else if v=0
+                                 then sv:=0
+                                 else sv:=1;
+                        if sfa=sv
+                          then begin
+                                 a:=x;
+                                 fa:=v
+                               end
+                          else begin
+                                 b:=x;
+                                 fb:=v
+                               end;
+                        x:=b-fb*(b-a)/(fb-fa)
+                      end;
+                    regulafalsi:=x;
+                    fatx:=f(x)
+                  end
+         end
+end;
+
+end.

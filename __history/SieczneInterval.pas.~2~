@@ -1,0 +1,77 @@
+unit SieczneInterval;
+
+interface
+
+uses
+  IntervalArithmetic32and64;
+
+implementation
+
+//TUTAJ ZMIENIC NA INTERVAL
+type DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+
+var
+f : DLLFunction; //oznacza wczytan¹ funkcje
+
+
+//METODA SIECZNYCH
+function linearintpolInterval (var a,b  : Interval;
+                       var fatx : Interval) : Extended;
+var fa,fb,x : Interval;
+    h : Extended; //zmienione
+    cond      : Boolean;
+begin
+  cond:=true;
+  h:=0.179372*(b-a);
+  a:=a+h;
+  b:=b-h;
+  fa:=f(a);
+  fb:=f(b);
+  if abs(fa)<abs(fb)
+    then begin
+           h:=a;
+           a:=b;
+           b:=h;
+           h:=fa;
+           fa:=fb;
+           fb:=h
+         end;
+  repeat
+    x:=fa-fb;
+    if x=0
+      then begin
+             linearintpolInterval:=b;
+             fatx:=fb;
+             cond:=false
+           end
+      else begin
+             h:=b-a;
+             x:=b+fb*h/x;
+             if x=a
+               then begin
+                      fatx:=fa;
+                      cond:=false
+                    end
+               else if x=b
+                      then begin
+                             fatx:=fb;
+                             cond:=false
+                           end
+                      else begin
+                             fatx:=f(x);
+                             if fatx=0
+                               then cond:=false
+                           end;
+             if not cond
+               then linearintpolInterval:=x
+               else begin
+                      fa:=fb;
+                      fb:=fatx;
+                      a:=b;
+                      b:=x
+                    end
+           end
+  until not cond;
+end;
+
+end.

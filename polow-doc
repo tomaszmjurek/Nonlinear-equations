@@ -1,0 +1,92 @@
+{
+                                                                          }
+{  The function binarysearch finds an approximate value of the root of the  }
+{  equation f(x)=0 lying in the interval [a,b] by the bisection algorithm.  }
+{  Data:                                                                    }
+{    a,b - the ends of the interval which contains the root (changed on     }
+{          exit),                                                           }
+{    f   - a Turbo Pascal function which for the given value x calculates   }
+{          f(x),                                                            }
+{    mit - maximum number of iterations,                                    }
+{    tol - tolerance for the solution.                                      }
+{  Results:                                                                 }
+{    binarysearch(a,b,f,mit,eps,fatx,it,st) - approximate value of the      }
+{                                             root,                         }
+{    fatx                                   - the value of the function     }
+{                                             f(x) at the approximate root, }
+{    it                                     - number of iterations.         }
+{  Other parameters:                                                        }
+{    st - a variable which within the function binarysearch is assigned the }
+{         value of:                                                         }
+{           1, if mit<1,                                                    }
+{           2, f(a)*f(b)>=0,                                                }
+{           3, if the given tolerance is not achieved in mit iteration      }
+{              steps,                                                       }
+{           0, otherwise.                                                   }
+{         Note: If st=1 or st=2, then                                       }
+{               binarysearch(a,b,f,mit,tol,fatx,it,st) is not calculated,   }
+{               and if st=3, then binarysearch(a,b,f,mit,tol,fatx,it,st)    }
+{               yields the last approximation found.                        }
+{  Unlocal identifier:                                                      }
+{    fx - a procedural-type identifier defined as follows                   }
+{           type fx = function (x : Extended) : Extended;                   }
+{  Note: Any function passed as a parameter should be declared with a far   }
+{        directive or compiled in the $F+ state.                            }
+{                                                    
+
+{---------------------------------------------------------------------------
+Usage:
+	The function binarysearch finds an approximate value of the root of the  
+	equation f(x)=0 lying in the interval [a,b] by the bisection algorithm.
+	
+	Algorithm:
+		1. Decide initial values for x1 and x2 and stopping criterion, E.
+		2. Compute f1 = f(x1) and f2 = f(x2).
+		3. If f1 * f2>0, x1 and x2 do not bracket any root and go to step 7;
+		Otherwise continue.
+		4. Compute x0 = (x1+x2)/2 and compute f0 = f(x0)
+		5. If f1*f0 < 0 then
+		set x2 = x0
+		else
+		set x1 = x0
+		set f1 = f0
+		6. If absolute value of (x2 – x1)/x2 is less than error E, then
+		root = (x1 + x2)/2
+		write the value of root
+		go to step 7
+		else
+		go to step 4
+		7. Stop.
+
+Function call:
+	binarysearch(f,a,b,mit,eps,fatx,it,st)
+	
+Data:                    
+	f   - a function which for the given value x calculates f(x),
+	a,b - the ends of the interval which contains the root (changed on exit),       
+	mit - maximum number of iterations,                                    
+	tol - tolerance for the solution. 
+
+Result:
+	binarysearch(a,b,f,mit,eps,fatx,it,st) - approximate value of the root,                         
+ fatx                                   - the value of the function     
+                                             f(x) at the approximate root, 
+ it                                     - number of iterations.    
+	
+Other parameters:
+	 st - a variable which within the function binarysearch is assigned the 
+         value of:                                                         
+           1, if mit<1,                                                    
+           2, f(a)*f(b)>=0,                                                
+           3, if the given tolerance is not achieved in mit iteration      
+              steps,                                                       
+           0, otherwise. 
+											
+Types of parameters:
+	f : DLLFunction
+	a,b,tol,fatx : Extended
+	mit,it,st : Integer
+											
+Unlocal identifier: 
+	DLLFunction = function(x : Extended) : Extended
+---------------------------------------------------------------------------}

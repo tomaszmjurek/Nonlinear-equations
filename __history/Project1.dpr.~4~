@@ -1,0 +1,18 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  Unit1 in '..\Embarcadero\Studio\Projects\Unit1.pas' {Form1},
+  SieczneInterval in 'SieczneInterval.pas',
+  IntervalArithmetic32and64 in 'IntervalArithmetic32and64.pas',
+  PolowienieInterval in 'PolowienieInterval.pas',
+  Sieczne in 'Sieczne.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

@@ -1,3 +1,6 @@
+przedziałowa: przedział a i przedział b, rozwiązanie też w przedziale
+
+
 ROZWIĄZANIE RÓWNIANIA NIELINIOWEGO METODAMI POŁOWIENIA, REGULA FALSI I SIECZNYCH
 
 METODA POŁOWIENIA
