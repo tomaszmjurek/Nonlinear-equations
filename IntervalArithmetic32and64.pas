@@ -38,6 +38,7 @@ type interval = record
                   class operator Subtract (x, y : interval) : interval;
                   class operator Multiply (x, y : interval) : interval;
                   class operator Divide (x, y : interval) : interval;
+                  class operator LessThan (const x, y : interval) : Boolean;
                 end;
 
 // Functions for basic arithmetic operations for proper intervals (one can use
@@ -48,6 +49,9 @@ function iadd (const x, y : interval) : interval;
 function isub (const x, y : interval) : interval;
 function imul (const x, y : interval) : interval;
 function idiv (const x, y : interval) : interval;
+function containZero(const x: interval): Boolean; //added new
+function greaterOrEvenZero(const x: interval) : Boolean;
+function greaterThanZero(const x: interval) : Boolean;
 
 // Basic interval type with definitions of overloading operators for directed
 // (improper) intervals
@@ -263,6 +267,42 @@ implementation
     Result.a:=x.a;
     Result.b:=x.b
   end {Positive};
+
+  class operator interval.LessThan(const x, y: interval): Boolean;
+  begin
+    if x.b < y.a then
+      Result := True
+    else
+      Result := False
+  end { LessThan };
+
+
+  //NEW
+  function containZero(const x: interval): Boolean;
+  begin
+    if (x.a <= 0) AND (x.b >= 0) then
+      Result := True
+    else
+      Result := False;
+  end { containZero };
+
+   //NEW
+  function greaterOrEvenZero(const x: interval): Boolean;
+  begin
+    if (x.a >= 0) then
+      Result := True
+    else
+      Result := False;
+  end { greaterOrEvenZero };
+
+  //NEW
+  function greaterThanZero(const x: interval): Boolean;
+  begin
+    if (x.a > 0) then
+      Result := True
+    else
+      Result := False;
+  end { greaterThanZero };
 
   function int_width (const x : interval) : Extended;
   begin
