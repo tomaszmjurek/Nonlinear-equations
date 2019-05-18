@@ -1,0 +1,324 @@
+unit Main;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, PolowienieInterval, SieczneInterval, IntervalArithmetic32and64,
+  ShellAPI, Vcl.ShellAnimations, Vcl.ComCtrls, Vcl.FileCtrl, Sieczne, Polowienie, Regula_falsi, Regula_falsiInterval; //ShellAPI for explorer.exe
+
+type
+  TForm1 = class(TForm)
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Button1: TButton;
+    RadioButton3: TRadioButton;
+    StaticText1: TStaticText;
+    StaticText2: TStaticText;
+    Edit3: TEdit;
+    StaticText3: TStaticText;
+    Edit4: TEdit;
+    StaticText4: TStaticText;
+    Edit5: TEdit;
+    StaticText5: TStaticText;
+    Edit6: TEdit;
+    StaticText6: TStaticText;
+    Edit7: TEdit;
+    StaticText7: TStaticText;
+    StaticText8: TStaticText;
+    Button2: TButton;
+    FileListBox1: TFileListBox;
+    DirectoryListBox1: TDirectoryListBox;
+    Panel1: TPanel;
+    RadioButton6: TRadioButton;
+    RadioButton4: TRadioButton;
+    Edit8: TEdit;
+    Edit9: TEdit;
+    StaticText9: TStaticText;
+    StaticText10: TStaticText;
+    Edit10: TEdit;
+    Edit11: TEdit;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure RadioButton4Click(Sender: TObject);
+    procedure RadioButton6Click(Sender: TObject);
+  private
+    { Private declarations }
+
+  public
+    { Public declarations }
+  end;
+
+  type
+    DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+    DLLFunctionI = function(x : Interval) : Interval;
+
+  var
+  Form1: TForm1;
+  functionFileName : PWideChar;
+  f : DLLFunction; //oznacza wczytanπ funkcje
+  fI : DLLFunctionI;
+  isInterval : Boolean;
+
+implementation
+
+{$R *.dfm}
+
+  function f2 (x : Extended) : Extended;
+  begin
+    f2:=x*x-2;
+  end;
+
+//PRZECINKI NA KROPKI
+//S:=StringReplace(S, ',', '.', [rfReplaceAll]);
+
+{CLEAR STRING-GRIDS FROM NON NUMBERS AND ALLOWED CHAR}
+//procedure TForm1.RemoveFromStart(var Str: String; floatAr: Boolean);
+//begin
+//  if (Str <> '') then
+//    Str := TRegEx.Replace(Str, '[a-üA-èøØ=\":\[\]!@#$%^&*()_+.<>?/|}{. ]+', '')
+//  else
+//    Str := '';
+//
+//  if (floatAr) then
+//    Str := TRegEx.Replace(Str, ';', '');
+//end;
+
+//W zaleznosci od zaznaczonego pola wczytuje jako interval lub extended
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  DLL, iDLL : THandle;
+begin
+//  try
+    functionFileName := PWideChar(Edit1.Text);
+  //  Edit1.Text := functionFileName;
+
+    if isInterval then
+    begin
+      iDLL := LoadLibrary(functionFileName); // za≥adowanie pliku
+      @fI := GetProcAddress(iDLL, 'fI');  // pobranie wskaünika do procedury
+      if @fI = nil then raise Exception.Create('Nie moøna za≥adowaÊ procedury');
+      Edit1.Text := 'Wczytano funkcjÍ arytmetyki przedzialowej';
+    end
+    else
+    begin
+      DLL := LoadLibrary(functionFileName); // za≥adowanie pliku
+      @f := GetProcAddress(DLL, 'f');  // pobranie wskaünika do procedury
+      if @f = nil then raise Exception.Create('Nie moøna za≥adowaÊ procedury');
+      Edit1.Text := 'Wczytano funkcjÍ arytmetyki liczbowej';
+    end;
+end;
+
+
+procedure TForm1.RadioButton4Click(Sender: TObject);
+begin
+    Form1.Edit8.Visible := true;
+    Form1.Edit9.Visible := true;
+    Form1.StaticText9.Visible := true;
+    Form1.StaticText10.Visible := true;
+    isInterval := true;
+end;
+
+procedure TForm1.RadioButton6Click(Sender: TObject);
+begin
+  Form1.Edit8.Visible := false;
+  Form1.Edit9.Visible := false;
+  Form1.StaticText9.Visible := false;
+  Form1.StaticText10.Visible := false;
+  isInterval := false;
+end;
+
+{ZMIENIAM}
+//METODA REGULA FALSI
+function regulafalsi2 (//f :  DLLFunction;   //przekazana funkcja wczytana w main
+                      var a,b  : Extended;
+                      var fatx : Extended;
+                      var st   : Integer) : Extended;
+var sfa,sv    : Integer;
+    fa,fb,v,x : Extended;
+begin
+  if a>=b
+    then st:=1
+    else begin
+           fa:=f2(a);
+           if fa<0
+             then sfa:=-1
+             else if fa=0
+                    then sfa:=0
+                    else sfa:=1;
+           fb:=f2(b);
+           if sfa*fb>0
+             then st:=2
+             else begin
+                    st:=0;
+                    x:=b-fb*(b-a)/(fb-fa);
+                    while (a<x) and (x<b) do
+                      begin
+                        v:=f(x);
+                        if v<0
+                          then sv:=-1
+                          else if v=0
+                                 then sv:=0
+                                 else sv:=1;
+                        if sfa=sv
+                          then begin
+                                 a:=x;
+                                 fa:=v
+                               end
+                          else begin
+                                 b:=x;
+                                 fb:=v
+                               end;
+                        x:=b-fb*(b-a)/(fb-fa)
+                      end;
+                    regulafalsi2:=x;
+                    fatx:=f2(x)
+                  end
+         end
+end;
+
+{KONIEC ZMIAN}
+
+//WYWO£ANIE FUNKCJI RF Z PARAMETRAMI
+function calculateRegulaFalsi() : Extended;
+var st         : Integer;
+    a, b, fatx, z : Extended;
+    wynik : String;
+begin
+  a := strtofloat(Form1.Edit6.Text);
+  b := strtofloat(Form1.Edit7.Text);
+  z := regulafalsi2(a, b, fatx, st);
+  str(z:26, wynik);
+  Form1.Edit2.Text := wynik;
+  str(fatx:26, wynik);
+  Form1.Edit3.Text := wynik;
+  Form1.Edit4.Text := IntToStr(st);
+
+  Form1.StaticText3.Visible := true;
+  Form1.Edit4.Visible := true;
+  Form1.Edit5.Visible := false;
+  Form1.StaticText4.Visible := false;
+end;
+
+
+//WYWO£ANIE FUNKCJI LININTPL Z PARAMETRAMI
+function calculateLinearintpol() : Extended;
+var a, b, fatx, z : Extended;
+    wynik : String;
+begin
+  a := strtofloat(Form1.Edit6.Text);
+  b := strtofloat(Form1.Edit7.Text);
+  z := linearintpol(f, a, b, fatx);
+
+  str(z:26, wynik); //dokladne przyblizenie
+  Form1.Edit2.Text := wynik;
+  str(fatx:26, wynik);
+  Form1.Edit3.Text := wynik;
+
+  Form1.StaticText3.Visible := false;
+  Form1.StaticText4.Visible := false;
+  Form1.Edit4.Visible := false;
+  Form1.Edit5.Visible := false;
+end;
+
+
+
+
+//WYWO£ANIE FUNKCJI BINSEARCH Z PARAMETRAMI
+function calculateBinarysearch() : Extended;
+var a, b, fatx, z, tol : Extended;
+    mit, it, st : Integer; //max liczba iteracji
+    wynik : String;
+begin
+  a := strtofloat(Form1.Edit6.Text);
+  b := strtofloat(Form1.Edit7.Text);
+  mit := 60;
+  tol := 1e-16; //tolerancja bledu
+  z := binarysearch(f, a, b, mit, tol, fatx, it, st);
+ { str(z:26, wynik);
+  Form1.Edit2.Text := wynik;
+  str(fatx:26, wynik);
+  Form1.Edit3.Text := wynik;
+  Form1.Edit4.Text := IntToStr(st);
+  Form1.Edit5.Text := IntToStr(it);
+
+  Form1.StaticText3.Visible := true;
+  Form1.StaticText4.Visible := true;
+  Form1.Edit4.Visible := true;
+  Form1.Edit5.Visible := true;     }
+end;
+
+function calculateBinarySearchI() : Extended;
+var a, b, fatx, tol, z : interval;
+    mit, it, st : Integer; //POZMIENIAC NA INTERVAL
+    wynik : String;
+begin
+  a := left_read(Form1.Edit6.Text);
+  a := right_read(Form1.Edit8.Text);
+  b := left_read(Form1.Edit7.Text);  //leftRead
+  b := right_read(Form1.Edit9.Text);  //rightRead
+  mit := 60;
+  tol := 1e-16; //tolerancja bledu
+  z := binarysearchI(fI, a, b, fatx, mit, tol, it, st);
+  {str(z.a:26, wynik);  //TUTAJ LEFT WRITE
+  Form1.Edit10.Text := wynik;
+  str(z.b:26, wynik);
+  Form1.Edit11.Text := wynik;  //POPRAWIC WYPISYWANIE        }
+//  str(fatx:26, wynik);
+//  Form1.Edit3.Text := wynik;
+  Form1.Edit4.Text := st.ToString;
+  Form1.Edit5.Text := it.ToString;
+
+  Form1.StaticText3.Visible := true;
+  Form1.StaticText4.Visible := true;
+  Form1.Edit4.Visible := true;
+  Form1.Edit5.Visible := true;
+end;
+
+
+function calculateLinearintpolI() : Extended;
+begin
+
+end;
+function calculateRegulaFalsiI() : Extended;
+begin
+
+end;
+
+//Function strip(S:String):String;
+//Var
+//    I:Integer;
+//Begin
+//    Result:+''
+//    For I:=1 to Length(S) do
+//        If Copy(S, I, 1) in ['0'..'9'] then
+//            Result:=Result+Copy(S, I, 1);
+//end;
+
+//OBS£UGA PRZYCISKU 'WYLICZ'
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  if isInterval = False then
+  begin
+    if (Form1.Edit6.Text = '') or (Form1.Edit7.Text = '') then Edit2.Text := 'Wpisz wartosci przedialu!'
+   // else if Form1.Edit6.Text in ['0'..'9'] then Edit2.Text := 'Bledne wartosci przedialu!'
+
+    else if Radiobutton1.Checked = True then calculateBinarysearch()
+    else if RadioButton2.Checked = True then calculateLinearintpol()
+    else if RadioButton3.Checked = True then calculateRegulaFalsi();
+  end
+  else
+  begin
+    if (Form1.Edit6.Text = '') or (Form1.Edit7.Text = '') or (Form1.Edit8.Text = '') or (Form1.Edit9.Text = '') then Edit2.Text := 'Wpisz wartosci przedialu!'
+   // else if Form1.Edit6.Text in ['0'..'9'] then Edit2.Text := 'Bledne wartosci przedialu!'
+
+    else if Radiobutton1.Checked = True then calculateBinarysearchI()
+    else if RadioButton2.Checked = True then calculateLinearintpolI()
+    else if RadioButton3.Checked = True then calculateRegulaFalsiI();
+  end;
+end;
+
+
+end.

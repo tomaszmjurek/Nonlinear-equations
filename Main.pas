@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, PolowienieInterval, IntervalArithmetic32and64,
-  ShellAPI, Vcl.ShellAnimations, Vcl.ComCtrls, Vcl.FileCtrl, Sieczne, Polowienie, Regula_falsi; //ShellAPI for explorer.exe
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, PolowienieInterval, SieczneInterval, IntervalArithmetic32and64,
+  ShellAPI, Vcl.ShellAnimations, Vcl.ComCtrls, Vcl.FileCtrl, Sieczne, Polowienie, Regula_falsi, Regula_falsiInterval; //ShellAPI for explorer.exe
 
 type
   TForm1 = class(TForm)
@@ -66,6 +66,11 @@ implementation
 
 {$R *.dfm}
 
+  function f2 (x : Extended) : Extended;
+  begin
+    f2:=x*x-2;
+  end;
+
 //PRZECINKI NA KROPKI
 //S:=StringReplace(S, ',', '.', [rfReplaceAll]);
 
@@ -88,7 +93,7 @@ var
 begin
 //  try
     functionFileName := PWideChar(Edit1.Text);
-    Edit1.Text := functionFileName;
+  //  Edit1.Text := functionFileName;
 
     if isInterval then
     begin
@@ -125,57 +130,6 @@ begin
   isInterval := false;
 end;
 
-{ZMIENIAM}
-//METODA REGULA FALSI
-function regulafalsi2 (//f :  DLLFunction;   //przekazana funkcja wczytana w main
-                      var a,b  : Extended;
-                      var fatx : Extended;
-                      var st   : Integer) : Extended;
-var sfa,sv    : Integer;
-    fa,fb,v,x : Extended;
-begin
-  if a>=b
-    then st:=1
-    else begin
-           fa:=f(a);
-           if fa<0
-             then sfa:=-1
-             else if fa=0
-                    then sfa:=0
-                    else sfa:=1;
-           fb:=f(b);
-           if sfa*fb>0
-             then st:=2
-             else begin
-                    st:=0;
-                    x:=b-fb*(b-a)/(fb-fa);
-                    while (a<x) and (x<b) do
-                      begin
-                        v:=f(x);
-                        if v<0
-                          then sv:=-1
-                          else if v=0
-                                 then sv:=0
-                                 else sv:=1;
-                        if sfa=sv
-                          then begin
-                                 a:=x;
-                                 fa:=v
-                               end
-                          else begin
-                                 b:=x;
-                                 fb:=v
-                               end;
-                        x:=b-fb*(b-a)/(fb-fa)
-                      end;
-                    regulafalsi2:=x;
-                    fatx:=f(x)
-                  end
-         end
-end;
-
-{KONIEC ZMIAN}
-
 //WYWO£ANIE FUNKCJI RF Z PARAMETRAMI
 function calculateRegulaFalsi() : Extended;
 var st         : Integer;
@@ -184,7 +138,7 @@ var st         : Integer;
 begin
   a := strtofloat(Form1.Edit6.Text);
   b := strtofloat(Form1.Edit7.Text);
-  z := regulafalsi2(a, b, fatx, st);
+  z := regulafalsi(f, a, b, fatx, st);
   str(z:26, wynik);
   Form1.Edit2.Text := wynik;
   str(fatx:26, wynik);
@@ -196,7 +150,6 @@ begin
   Form1.Edit5.Visible := false;
   Form1.StaticText4.Visible := false;
 end;
-
 
 //WYWO£ANIE FUNKCJI LININTPL Z PARAMETRAMI
 function calculateLinearintpol() : Extended;
@@ -250,10 +203,11 @@ var a, b, fatx, tol, z : interval;
     mit, it, st : Integer; //POZMIENIAC NA INTERVAL
     wynik : String;
 begin
-  a := left_read(Form1.Edit6.Text);
-  a := right_read(Form1.Edit8.Text);
-  b := left_read(Form1.Edit7.Text);  //leftRead
-  b := right_read(Form1.Edit9.Text);  //rightRead
+//    S:=StringReplace(S, ',', '.', [rfReplaceAll]);
+  a := left_read(StringReplace(Form1.Edit6.Text, ',','.', [rfReplaceAll]));
+  a := right_read(StringReplace(Form1.Edit8.Text, ',','.', [rfReplaceAll]));
+  b := left_read(StringReplace(Form1.Edit7.Text, ',','.', [rfReplaceAll]));  //leftRead
+  b := right_read(StringReplace(Form1.Edit9.Text, ',','.', [rfReplaceAll]));  //rightRead
   mit := 60;
   tol := 1e-16; //tolerancja bledu
   z := binarysearchI(fI, a, b, fatx, mit, tol, it, st);
