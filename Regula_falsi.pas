@@ -5,7 +5,7 @@ interface
 type
   DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
 
-function regulafalsi ( f :  DLLFunction;
+function regulafalsi (f :  DLLFunction;
                       var a,b  : Extended;
                       var fatx : Extended;
                       var st   : Integer) : Extended;
@@ -65,6 +65,9 @@ Code: <below>
 
 implementation
 
+var
+  f : DLLFunction; //oznacza wczytan¹ funkcje
+
 //METODA REGULA FALSI
 function regulafalsi (f :  DLLFunction;   //przekazana funkcja wczytana w main
                       var a,b  : Extended;
@@ -72,7 +75,6 @@ function regulafalsi (f :  DLLFunction;   //przekazana funkcja wczytana w main
                       var st   : Integer) : Extended;
 var sfa,sv    : Integer;
     fa,fb,v,x : Extended;
-    DLL : THandle;
 begin
   if a>=b
     then st:=1

@@ -2,7 +2,12 @@ unit Sieczne;
 
 interface
 
-function linearintpol (var a,b  : Extended;
+type
+  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+
+
+function linearintpol (f : DLLFunction;
+                       var a,b  : Extended;
                        var fatx : Extended) : Extended;
 
 {---------------------------------------------------------------------------
@@ -49,14 +54,10 @@ Code: <below>
 
 implementation
 
-type
-  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
-
-var
-f : DLLFunction; //oznacza wczytan¹ funkcje
 
 //METODA SIECZNYCH
-function linearintpol (var a,b  : Extended;
+function linearintpol (f : DLLFunction;
+                       var a,b  : Extended;
                        var fatx : Extended) : Extended;
 var fa,fb,h,x : Extended;
     cond      : Boolean;

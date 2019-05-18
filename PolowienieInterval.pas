@@ -7,8 +7,8 @@ IntervalArithmetic32and64;
 
 type DLLFunctionI = function(x : Interval) : Interval; //typ wczytywanych przez dll funkcji
 
-var
-f : DLLFunctionI; //oznacza wczytan¹ funkcje
+//var
+//fI : DLLFunctionI; //oznacza wczytan¹ funkcje
 
 function binarysearchI (fI : DLLFunctionI;
                        var a,b, fatx  : Interval;
@@ -67,8 +67,8 @@ begin
     if mit<1
       then st:=1
       else begin
-             fa:=f(a);
-             fb:=f(b);
+             fa:=fI(a);
+             fb:=fI(b);
              if greaterOrEvenZero(fa*fb)  //new function
                then st:=2
                else begin
@@ -77,12 +77,12 @@ begin
                       repeat
                         it:=it+1;
                         x:=a+(b-a)/2;
-                        fa:=f(x);
+                        fa:=fI(x);
                         if (containZero(fa)) or ((b-a)/2<tol)
                           then st:=0
                           else begin
-                                 fa:=f(a);
-                                 fb:=f(x);
+                                 fa:=fI(a);
+                                 fb:=fI(x);
                                  if greaterThanZero(fa*fb)
                                    then a:=x
                                    else b:=x
@@ -93,7 +93,7 @@ begin
     if (st=0) or (st=3)
       then begin
              binarysearchI:=x;
-             fatx:=f(x)
+             fatx:=fI(x)
            end
 end;
 

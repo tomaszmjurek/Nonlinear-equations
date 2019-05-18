@@ -2,7 +2,13 @@ unit Polowienie;
 
 interface
 
-function binarysearch (var a,b   : Extended;
+type
+  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+
+var f : DLLFunction;
+
+function binarysearch (f : DLLFunction;
+                       var a,b   : Extended;
                        mit       : Integer;
                        tol       : Extended;
                        var fatx  : Extended;
@@ -68,14 +74,9 @@ Code: <below>
 
 implementation
 
-type
-  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
-
-var
-f : DLLFunction; //oznacza wczytan¹ funkcje
-
 //METODA PO£OWIENIA
-function binarysearch (var a,b   : Extended;
+function binarysearch (f : DLLFunction;
+                       var a,b   : Extended;
                        mit       : Integer;
                        tol       : Extended;
                        var fatx  : Extended;

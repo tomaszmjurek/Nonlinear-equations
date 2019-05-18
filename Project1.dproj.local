@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.004,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.308,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.560,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.799,C:\Users\tomas\Documents\Delphi\Unit2.pas=C:\Users\tomas\Documents\Delphi\PolowienieInterval.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.830,C:\Users\tomas\Documents\Delphi\Unit2.pas=C:\Users\tomas\Documents\Delphi\Sieczne.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.811,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.965,=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.124,C:\Users\tomas\Documents\Delphi\Polowienie.pas=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.231,C:\Users\tomas\Documents\Delphi\Regula_falsi.pas=C:\Users\tomas\Documents\Delphi\Regulafalsi.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.661,=C:\Users\tomas\Documents\Delphi\IntervalArithmetic32and64.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.095,C:\Users\tomas\Documents\Delphi\Unit2.pas=C:\Users\tomas\Documents\Delphi\SieczneInterval.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.776,C:\Users\tomas\Documents\Delphi\Project1.dproj=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.476,C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Main.dfm=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.177,C:\Users\tomas\Documents\Delphi\Regula_falsiInterval.pas=C:\Users\tomas\Documents\Delphi\RegulafalsiInterval.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.476,C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Main.pas=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.101,C:\Users\tomas\Documents\Delphi\Regulafalsi.pas=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.506,=C:\Users\tomas\Documents\Delphi\Funkcja\Win32\Debug\FunctionLibrary.dll</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.714,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.327,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.294,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.133,C:\Users\tomas\Documents\Delphi\RegulafalsiInterval.pas=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.327,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.714,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.101,C:\Users\tomas\Documents\Delphi\Unit2.pas=C:\Users\tomas\Documents\Delphi\Regulafalsi.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.124,C:\Users\tomas\Documents\Delphi\Unit2.pas=C:\Users\tomas\Documents\Delphi\Polowienie.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.133,C:\Users\tomas\Documents\Delphi\Unit2.pas=C:\Users\tomas\Documents\Delphi\RegulafalsiInterval.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.476,C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.965,=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.177,C:\Users\tomas\Documents\Delphi\RegulafalsiInterval.pas=C:\Users\tomas\Documents\Delphi\Regula_falsiInterval.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.776,C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\tomas\Documents\Delphi\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.661,=C:\Users\tomas\Documents\Delphi\IntervalArithmetic32and64.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.401,C:\Users\tomas\Documents\Delphi\Funkcja\Win32\Debug\FunctionLibrary.dll=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.506,=C:\Users\tomas\Documents\Delphi\Funkcja\Win32\Debug\FunctionLibrary.dll</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.830,C:\Users\tomas\Documents\Delphi\Sieczne.pas=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.231,C:\Users\tomas\Documents\Delphi\Regulafalsi.pas=C:\Users\tomas\Documents\Delphi\Regula_falsi.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.799,C:\Users\tomas\Documents\Delphi\PolowienieInterval.pas=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.476,C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\tomas\Documents\Embarcadero\Studio\Projects\Main.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.308,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.004,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.811,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.560,=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.095,C:\Users\tomas\Documents\Delphi\SieczneInterval.pas=C:\Users\tomas\Documents\Delphi\Unit2.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="..\..\Documents"/>

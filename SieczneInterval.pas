@@ -10,8 +10,8 @@ implementation
 //TUTAJ ZMIENIC NA INTERVAL !!
 type DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
 
-var
-f : DLLFunction; //oznacza wczytan¹ funkcje
+//var
+//f : DLLFunction; //oznacza wczytan¹ funkcje
 
 
 ////METODA SIECZNYCH
