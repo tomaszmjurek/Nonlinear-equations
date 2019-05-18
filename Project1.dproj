@@ -90,10 +90,6 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\Embarcadero\Studio\Projects\Main.pas">
-            <Form>Form1</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="SieczneInterval.pas"/>
         <DCCReference Include="IntervalArithmetic32and64.pas"/>
         <DCCReference Include="PolowienieInterval.pas"/>
@@ -101,6 +97,10 @@
         <DCCReference Include="Polowienie.pas"/>
         <DCCReference Include="Regula_falsi.pas"/>
         <DCCReference Include="Regula_falsiInterval.pas"/>
+        <DCCReference Include="Main.pas">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
