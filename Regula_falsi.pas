@@ -34,7 +34,7 @@ Algorithm:
 7. Display the root as x.
 
 Function call:
-	binarysearch(f,a,b,mit,eps,fatx,it,st)
+	regulafalsi(f,a,b,mit,eps,fatx,it,st)
 
 Data:
     a,b - the ends of the interval which contains the root (changed on

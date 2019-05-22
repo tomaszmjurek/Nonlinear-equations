@@ -39,6 +39,8 @@ type interval = record
                   class operator Multiply (x, y : interval) : interval;
                   class operator Divide (x, y : interval) : interval;
                   class operator LessThan (const x, y : interval) : Boolean;
+                  class operator GreaterThanOrEqual(const x, y: interval): Boolean;
+                  class operator Equal(const x, y: interval): Boolean;
                 end;
 
 // Functions for basic arithmetic operations for proper intervals (one can use
@@ -52,6 +54,7 @@ function idiv (const x, y : interval) : interval;
 function containZero(const x: interval): Boolean; //added new
 function greaterOrEvenZero(const x: interval) : Boolean;
 function greaterThanZero(const x: interval) : Boolean;
+function iabs(const x: interval): interval;
 
 // Basic interval type with definitions of overloading operators for directed
 // (improper) intervals
@@ -319,6 +322,25 @@ implementation
     Result.b:=x.b+y.b;
     SetRoundMode (rmNearest)
   end {iadd};
+
+  function iabs(const x: interval): interval;
+  begin
+    if (x.a <= 0) and (x.b <= 0) then
+    begin
+      Result.a := abs(x.b);
+      Result.b := abs(x.a);
+    end
+    else if (x.a < 0) and (x.b > 0) then
+    begin
+      Result.a := 0;
+      Result.b := max(abs(x.a), x.b);
+    end
+    else
+    begin
+      Result.a := x.a;
+      Result.b := x.b;
+    end;
+  end { iabs };
 
   class operator interval.Add (x, y : interval) : interval;
   begin
@@ -730,6 +752,22 @@ implementation
            end;
     SetRoundMode (rmNearest)
   end {dimul};
+
+  class operator interval.GreaterThanOrEqual(const x, y: interval): Boolean;
+  begin
+    if x.b >= y.a then
+      Result := True
+    else
+      Result := False
+  end { GreaterThanOrEqual };
+
+   class operator interval.Equal(const x, y: interval): Boolean;
+  begin
+    if (x.a = y.a) AND (x.b = y.b) then
+      Result := True
+    else
+      Result := False
+  end { Equal };
 
   class operator dinterval.Multiply (x, y : dinterval) : dinterval;
   begin

@@ -5,10 +5,10 @@ interface
 uses
 IntervalArithmetic32and64;
 
-type DLLFunctionI = function(x : Interval) : Interval; //typ wczytywanych przez dll funkcji
+type DLLFunctionI = function(x : interval) : interval; //typ wczytywanych przez dll funkcji
 
-//var
-//fI : DLLFunctionI; //oznacza wczytan¹ funkcje
+var
+fI : DLLFunctionI; //oznacza wczytan¹ funkcje
 
 function binarysearchI (fI : DLLFunctionI;
                        var a,b, fatx  : Interval;

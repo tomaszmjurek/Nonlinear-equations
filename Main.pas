@@ -53,7 +53,7 @@ type
 
   type
     DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
-    DLLFunctionI = function(x : Interval) : Interval;
+    DLLFunctionI = function(x : interval) : interval;
 
   var
   Form1: TForm1;
@@ -66,9 +66,9 @@ implementation
 
 {$R *.dfm}
 
-  function f2 (x : Extended) : Extended;
+  function fI2 (x : interval) : interval;
   begin
-    f2:=x*x-2;
+    fI2:=x*x-2;
   end;
 
 //PRZECINKI NA KROPKI
@@ -171,9 +171,6 @@ begin
   Form1.Edit5.Visible := false;
 end;
 
-
-
-
 //WYWO£ANIE FUNKCJI BINSEARCH Z PARAMETRAMI
 function calculateBinarysearch() : Extended;
 var a, b, fatx, z, tol : Extended;
@@ -185,7 +182,7 @@ begin
   mit := 60;
   tol := 1e-16; //tolerancja bledu
   z := binarysearch(f, a, b, mit, tol, fatx, it, st);
- { str(z:26, wynik);
+  str(z:26, wynik);
   Form1.Edit2.Text := wynik;
   str(fatx:26, wynik);
   Form1.Edit3.Text := wynik;
@@ -195,30 +192,32 @@ begin
   Form1.StaticText3.Visible := true;
   Form1.StaticText4.Visible := true;
   Form1.Edit4.Visible := true;
-  Form1.Edit5.Visible := true;     }
+  Form1.Edit5.Visible := true;
 end;
 
-function calculateBinarySearchI() : Extended;
+function calculateBinarySearchI() : Interval;
 var a, b, fatx, tol, z : interval;
     mit, it, st : Integer; //POZMIENIAC NA INTERVAL
     wynik : String;
 begin
 //    S:=StringReplace(S, ',', '.', [rfReplaceAll]);
-  a := left_read(StringReplace(Form1.Edit6.Text, ',','.', [rfReplaceAll]));
-  a := right_read(StringReplace(Form1.Edit8.Text, ',','.', [rfReplaceAll]));
-  b := left_read(StringReplace(Form1.Edit7.Text, ',','.', [rfReplaceAll]));  //leftRead
-  b := right_read(StringReplace(Form1.Edit9.Text, ',','.', [rfReplaceAll]));  //rightRead
+  a.a := left_read(Form1.Edit6.Text);//StringReplace(Form1.Edit6.Text, ',','.', [rfReplaceAll]));
+  a.b := right_read(Form1.Edit8.Text);//StringReplace(Form1.Edit8.Text, ',','.', [rfReplaceAll]));
+  b.a := left_read(Form1.Edit7.Text);//StringReplace(Form1.Edit7.Text, ',','.', [rfReplaceAll]));  //leftRead
+  b.b := right_read(Form1.Edit9.Text);//StringReplace(Form1.Edit9.Text, ',','.', [rfReplaceAll]));  //rightRead
   mit := 60;
   tol := 1e-16; //tolerancja bledu
-  z := binarysearchI(fI, a, b, fatx, mit, tol, it, st);
-  {str(z.a:26, wynik);  //TUTAJ LEFT WRITE
-  Form1.Edit10.Text := wynik;
+  z := binarysearchI(fI,a, b, fatx, mit, tol, it, st);
+  str(z.a:26, wynik);
+  Form1.Edit2.Text := wynik;
   str(z.b:26, wynik);
-  Form1.Edit11.Text := wynik;  //POPRAWIC WYPISYWANIE        }
-//  str(fatx:26, wynik);
-//  Form1.Edit3.Text := wynik;
-  Form1.Edit4.Text := st.ToString;
-  Form1.Edit5.Text := it.ToString;
+  Form1.Edit10.Text := wynik;
+  str(fatx.a:26, wynik);
+  Form1.Edit3.Text := wynik;
+  str(fatx.b:26, wynik);
+  Form1.Edit11.Text := wynik;
+  Form1.Edit4.Text := floatToStr(st);
+  Form1.Edit5.Text := floatToStr(it);
 
   Form1.StaticText3.Visible := true;
   Form1.StaticText4.Visible := true;
@@ -226,14 +225,55 @@ begin
   Form1.Edit5.Visible := true;
 end;
 
-
 function calculateLinearintpolI() : Extended;
+  var a, b, fatx, z : interval;
+    wynik : String;
 begin
+  a.a := left_read(Form1.Edit6.Text);
+  a.b := right_read(Form1.Edit8.Text);
+  b.a := left_read(Form1.Edit7.Text);
+  b.b := right_read(Form1.Edit9.Text);
 
+  z := linearintpolI(fI, a, b, fatx);
+
+  str(z.a:26, wynik);
+  Form1.Edit2.Text := wynik;
+  str(z.b:26, wynik);
+  Form1.Edit10.Text := wynik;
+  str(fatx.a:26, wynik);
+  Form1.Edit3.Text := wynik;
+  str(fatx.b:26, wynik);
+  Form1.Edit11.Text := wynik;
+
+  Form1.StaticText3.Visible := false;       //do poprawy?
+  Form1.StaticText4.Visible := false;
+  Form1.Edit4.Visible := false;
+  Form1.Edit5.Visible := false;
 end;
-function calculateRegulaFalsiI() : Extended;
-begin
 
+function calculateRegulaFalsiI() : interval;
+var st         : Integer;
+    a, b, fatx, z : interval;
+    wynik : String;
+begin
+  a := strtofloat(Form1.Edit6.Text);
+  b := strtofloat(Form1.Edit7.Text);
+  z := regulafalsiI(fI, a, b, fatx, st);
+
+  str(z.a:26, wynik);
+  Form1.Edit2.Text := wynik;
+  str(z.b:26, wynik);
+  Form1.Edit10.Text := wynik;
+  str(fatx.a:26, wynik);
+  Form1.Edit3.Text := wynik;
+  str(fatx.b:26, wynik);
+  Form1.Edit11.Text := wynik;
+  Form1.Edit4.Text := IntToStr(st);
+
+  Form1.StaticText3.Visible := true;
+  Form1.Edit4.Visible := true;
+  Form1.Edit5.Visible := false;
+  Form1.StaticText4.Visible := false;
 end;
 
 //Function strip(S:String):String;
