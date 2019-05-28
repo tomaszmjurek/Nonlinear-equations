@@ -5,12 +5,12 @@ interface
 uses IntervalArithmetic32and64;
 
 type
-  DLLFunctionI = function(x : interval) : interval; //typ wczytywanych przez dll funkcji
+  DLLFunctionI = function(x : interval) : interval;
 
-function regulafalsiI (fI :  DLLFunctionI;   //przekazana funkcja wczytana w main
+function regulafalsiI (fI :  DLLFunctionI;
                       var a,b,fatx  : interval;
                       var st : Integer) : interval;
-{---------------------------------------------------------------------------
+{-------------------------DOCUMENTATION-----------------------------------------
 Usage:
   The function regulafalsi finds an approximate value of the root of the
   equation f(x)=0 lying in the interval [a,b] by regula falsi.
@@ -59,6 +59,20 @@ Types of parameters:
 
 Unlocal identifier:
 	DLLFunctionI = function(x : interval) : interval
+
+Examples for f(x) = x*x-2:
+
+1) Single interval, Correct
+  a = 1, b = 2
+  regulafalsi() = 1.41421356237308635E+0000  1.41421356237310099E+0000
+  fatx = -2.46137745602004188E-0014  1.67960263752764405E-0014
+  st = 0
+
+2) Double interval, Correct
+  regulafalsi() = 1.26553744746036192E+0000   1.51282909268095324E+0000
+  fatx =  -3.98414969075511681E-0001   2.88651863661876217E-0001
+  st = 0
+
 
 Code: <below>
 ---------------------------------------------------------------------------}

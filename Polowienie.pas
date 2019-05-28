@@ -3,7 +3,7 @@ unit Polowienie;
 interface
 
 type
-  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+  DLLFunction = function(x : Extended) : Extended;
 
 var f : DLLFunction;
 
@@ -13,7 +13,7 @@ function binarysearch (f : DLLFunction;
                        tol       : Extended;
                        var fatx  : Extended;
                        var it,st : Integer) : Extended;
-{---------------------------------------------------------------------------
+{-------------------------DOCUMENTATION-----------------------------------------
 Usage:
 	The function binarysearch finds an approximate value of the root of the
 	equation f(x)=0 lying in the interval [a,b] by the bisection algorithm.
@@ -68,6 +68,15 @@ Types of parameters:
 
 Unlocal identifier:
 	DLLFunction = function(x : Extended) : Extended
+
+Examples for f(x) = x*Exp(Sqrt(x+1))-1:
+
+1) Correct
+  a = -1, b = 1
+  regulafalsi() =   3.17347582146508322E-0001
+  fatx =  2.81892564846231153E-0018
+  st = 0
+  it = 55
 
 Code: <below>
 ---------------------------------------------------------------------------}

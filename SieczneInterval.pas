@@ -6,14 +6,14 @@ uses
   IntervalArithmetic32and64;
 
 type
-  DLLFunctionI = function(x : interval) : interval; //typ wczytywanych przez dll funkcji
+  DLLFunctionI = function(x : interval) : interval;
 
 
 function linearintpolI (fI : DLLFunctionI;
                        var a,b,fatx  : interval) : interval;
-{---------------------------------------------------------------------------
+{-------------------------DOCUMENTATION-----------------------------------------
 Usage:
-	The function linearintpol finds an approximate value of the root of the
+	The function linearintpolI finds an approximate value of the root of the
   equation f(x)=0 lying in the interval [a,b] or near this interval by
   linear interpolation.
 
@@ -49,6 +49,19 @@ Types of parameters:
 
 Unlocal identifier:
 	DLLFunctionI = function(x : interval) : interval
+
+Examples for f(x) = x*x-2:
+
+1) Single interval, Correct
+ a = 1, b = 2
+ linearintpolI() = 1.41421356237309502E+0000  1.41421356237309508E+0000
+ fatx = -8.66277535815918043E-0017  8.67361737988403547E-0017
+
+2) Double interval, Correct
+  a = 0,99 ; 1,01, b = 1,99 ; 2,01
+  linearintpolI() = 1.32043285383721468E+0000  1.56113229073069145E+0000
+  fatx = -2.56457078507308840E-0001  4.37134029162056144E-0001
+
 
 Code: <below>
 ---------------------------------------------------------------------------}

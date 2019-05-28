@@ -3,13 +3,13 @@ unit Regula_falsi;
 interface
 
 type
-  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+  DLLFunction = function(x : Extended) : Extended;
 
 function regulafalsi (f :  DLLFunction;
                       var a,b  : Extended;
                       var fatx : Extended;
                       var st   : Integer) : Extended;
-{---------------------------------------------------------------------------
+{-------------------------DOCUMENTATION-----------------------------------------
 Usage:
   The function regulafalsi finds an approximate value of the root of the
   equation f(x)=0 lying in the interval [a,b] by regula falsi.
@@ -59,6 +59,15 @@ Types of parameters:
 
 Unlocal identifier:
 	DLLFunction = function(x : Extended) : Extended
+
+Examples for f(x) = x*Exp(Sqrt(x+1))-1:
+
+1) Correct
+  a = -1, b = 1
+  regulafalsi() =  3.17347582146508322E-0001
+  fatx = -2.16840434497100887E-0019
+  st = 0
+
 
 Code: <below>
 ---------------------------------------------------------------------------}

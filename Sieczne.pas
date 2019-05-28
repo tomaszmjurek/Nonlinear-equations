@@ -3,14 +3,14 @@ unit Sieczne;
 interface
 
 type
-  DLLFunction = function(x : Extended) : Extended; //typ wczytywanych przez dll funkcji
+  DLLFunction = function(x : Extended) : Extended;
 
 
 function linearintpol (f : DLLFunction;
                        var a,b  : Extended;
                        var fatx : Extended) : Extended;
 
-{---------------------------------------------------------------------------
+{-------------------------DOCUMENTATION-----------------------------------------
 Usage:
 	The function linearintpol finds an approximate value of the root of the
   equation f(x)=0 lying in the interval [a,b] or near this interval by
@@ -48,6 +48,13 @@ Types of parameters:
 
 Unlocal identifier:
 	DLLFunction = function(x : Extended) : Extended
+
+Examples for f(x) = x*Exp(Sqrt(x+1))-1:
+
+1) Correct
+  a = -1, b = 1
+  regulafalsi() =    3.17347582146508322E-0001
+  fatx =   1.08420217248550443E-0019
 
 Code: <below>
 ---------------------------------------------------------------------------}
