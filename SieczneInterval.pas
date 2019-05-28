@@ -79,7 +79,7 @@ begin
          end;
   repeat
     x:=fa-fb;
-    if  x=0 //poprawione
+    if  containZero(x) //poprawione
       then begin
              linearintpolI:=b;
              fatx:=fb;

@@ -60,7 +60,8 @@ type
   functionFileName : PWideChar;
   f : DLLFunction; //oznacza wczytan¹ funkcje
   fI : DLLFunctionI;
-  isInterval : Boolean;
+  isInterval, isSingle : Boolean;
+  testI : DLLFunctionI;
 
 implementation
 
@@ -91,9 +92,7 @@ procedure TForm1.Button2Click(Sender: TObject);
 var
   DLL, iDLL : THandle;
 begin
-//  try
     functionFileName := PWideChar(Edit1.Text);
-  //  Edit1.Text := functionFileName;
 
     if isInterval then
     begin
@@ -101,6 +100,7 @@ begin
       @fI := GetProcAddress(iDLL, 'fI');  // pobranie wskaŸnika do procedury
       if @fI = nil then raise Exception.Create('Nie mo¿na za³adowaæ procedury');
       Edit1.Text := 'Wczytano funkcjê arytmetyki przedzialowej';
+//      freeLibrary(iDLL);
     end
     else
     begin
@@ -108,6 +108,7 @@ begin
       @f := GetProcAddress(DLL, 'f');  // pobranie wskaŸnika do procedury
       if @f = nil then raise Exception.Create('Nie mo¿na za³adowaæ procedury');
       Edit1.Text := 'Wczytano funkcjê arytmetyki liczbowej';
+//      FreeLibrary(DLL);
     end;
 end;
 
@@ -197,14 +198,21 @@ end;
 
 function calculateBinarySearchI() : Interval;
 var a, b, fatx, tol, z : interval;
-    mit, it, st : Integer; //POZMIENIAC NA INTERVAL
+    mit, it, st : Integer;
     wynik : String;
 begin
-//    S:=StringReplace(S, ',', '.', [rfReplaceAll]);
-  a.a := left_read(Form1.Edit6.Text);//StringReplace(Form1.Edit6.Text, ',','.', [rfReplaceAll]));
-  a.b := right_read(Form1.Edit8.Text);//StringReplace(Form1.Edit8.Text, ',','.', [rfReplaceAll]));
-  b.a := left_read(Form1.Edit7.Text);//StringReplace(Form1.Edit7.Text, ',','.', [rfReplaceAll]));  //leftRead
-  b.b := right_read(Form1.Edit9.Text);//StringReplace(Form1.Edit9.Text, ',','.', [rfReplaceAll]));  //rightRead
+  if isSingle then
+  begin
+    a :=  int_read(Form1.Edit6.Text);
+    b := int_read(Form1.Edit7.Text);
+  end
+  else
+  begin
+    a.a := left_read(Form1.Edit6.Text);
+    a.b := right_read(Form1.Edit8.Text);
+    b.a := left_read(Form1.Edit7.Text);
+    b.b := right_read(Form1.Edit9.Text);
+  end;
   mit := 60;
   tol := 1e-16; //tolerancja bledu
   z := binarysearchI(fI,a, b, fatx, mit, tol, it, st);
@@ -229,10 +237,18 @@ function calculateLinearintpolI() : Extended;
   var a, b, fatx, z : interval;
     wynik : String;
 begin
-  a.a := left_read(Form1.Edit6.Text);
-  a.b := right_read(Form1.Edit8.Text);
-  b.a := left_read(Form1.Edit7.Text);
-  b.b := right_read(Form1.Edit9.Text);
+  if isSingle then
+  begin
+    a :=  int_read(Form1.Edit6.Text);
+    b := int_read(Form1.Edit7.Text);
+  end
+  else
+  begin
+    a.a := left_read(Form1.Edit6.Text);
+    a.b := right_read(Form1.Edit8.Text);
+    b.a := left_read(Form1.Edit7.Text);
+    b.b := right_read(Form1.Edit9.Text);
+  end;
 
   z := linearintpolI(fI, a, b, fatx);
 
@@ -256,8 +272,19 @@ var st         : Integer;
     a, b, fatx, z : interval;
     wynik : String;
 begin
-  a := strtofloat(Form1.Edit6.Text);
-  b := strtofloat(Form1.Edit7.Text);
+  if isSingle then
+  begin
+    a :=  int_read(Form1.Edit6.Text);
+    b := int_read(Form1.Edit7.Text);
+  end
+  else
+  begin
+    a.a := left_read(Form1.Edit6.Text);
+    a.b := right_read(Form1.Edit8.Text);
+    b.a := left_read(Form1.Edit7.Text);
+    b.b := right_read(Form1.Edit9.Text);
+  end;
+
   z := regulafalsiI(fI, a, b, fatx, st);
 
   str(z.a:26, wynik);
@@ -292,7 +319,6 @@ begin
   if isInterval = False then
   begin
     if (Form1.Edit6.Text = '') or (Form1.Edit7.Text = '') then Edit2.Text := 'Wpisz wartosci przedialu!'
-   // else if Form1.Edit6.Text in ['0'..'9'] then Edit2.Text := 'Bledne wartosci przedialu!'
 
     else if Radiobutton1.Checked = True then calculateBinarysearch()
     else if RadioButton2.Checked = True then calculateLinearintpol()
@@ -300,12 +326,16 @@ begin
   end
   else
   begin
-    if (Form1.Edit6.Text = '') or (Form1.Edit7.Text = '') or (Form1.Edit8.Text = '') or (Form1.Edit9.Text = '') then Edit2.Text := 'Wpisz wartosci przedialu!'
-   // else if Form1.Edit6.Text in ['0'..'9'] then Edit2.Text := 'Bledne wartosci przedialu!'
+    isSingle := false;
+    if (Form1.Edit6.Text = '') or (Form1.Edit7.Text = '')  then Edit2.Text := 'Wpisz wartosci przedialu!'
+    else
+    begin
+      if (Form1.Edit8.Text = '') and (Form1.Edit9.Text = '') then isSingle := True;
 
-    else if Radiobutton1.Checked = True then calculateBinarysearchI()
-    else if RadioButton2.Checked = True then calculateLinearintpolI()
-    else if RadioButton3.Checked = True then calculateRegulaFalsiI();
+      if Radiobutton1.Checked = True then calculateBinarysearchI()
+      else if RadioButton2.Checked = True then calculateLinearintpolI()
+      else if RadioButton3.Checked = True then calculateRegulaFalsiI();
+    end;
   end;
 end;
 

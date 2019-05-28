@@ -69,19 +69,19 @@ var
   fI : DLLFunctionI; //oznacza wczytan¹ funkcje
 
 //METODA REGULA FALSI
-function regulafalsiI (fI :  DLLFunctionI;   //przekazana funkcja wczytana w main
+function regulafalsiI (fI :  DLLFunctionI;
                       var a,b,fatx  : interval;
                       var st : Integer) : interval;
 var sfa,sv    : Integer;
     fa,fb,v,x : interval;
 begin
-  if a>=b  //greaterOrEvenThan)
+  if a>=b
     then st:=1
     else begin
            fa:=fI(a);
            if fa<0
              then sfa:=-1
-             else if (fa.b=0) and (fa.a=0) //czy dobrze?
+             else if (fa.b=0) and (fa.a=0)
                     then sfa:=0
                     else sfa:=1;
            fb:=fI(b);
