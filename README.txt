@@ -25,3 +25,5 @@ Zawartość:
 	- functionStandard3.dll i functionInterval3.dll - f(x)=
 
 ! W każdym pliku z funkcją arytmetyczną znajduje jej dokumentacja
+
+![alt text](EAN-View.png)
