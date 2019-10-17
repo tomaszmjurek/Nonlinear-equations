@@ -26,4 +26,4 @@ Zawartość:
 
 ! W każdym pliku z funkcją arytmetyczną znajduje jej dokumentacja
 
-![alt text](EAN-View.png)
+![Alt text](EAN-View.png?raw=true "GUI")
