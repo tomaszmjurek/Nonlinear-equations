@@ -1,4 +1,4 @@
-Instrukcja użytkowania:
+## Instrukcja użytkowania:
 
 1. Uruchom ./Win32/Debug/Project1.exe
 2. Wybierz arytmetykę z której chcesz korzystać
@@ -10,7 +10,7 @@ Instrukcja użytkowania:
 	- dla arytmetyki przedziałowej możliwe jest uzupełnienie tylko pierwszych pól dla a i b, wtedy program sam obliczy najmniejszy przedział
 6. Kliknij 'Wylicz' i odczytaj rozwiązanie.
 
-Zawartość:
+## Zawartość:
 
 * Main.pas - główna funkcja, interakcja z użytkownikiem, wywoływanie funkcji liczących
 * Funkcje arytmetyki zwykłej:
@@ -25,5 +25,7 @@ Zawartość:
 	- functionStandard3.dll i functionInterval3.dll - f(x)=
 
 ! W każdym pliku z funkcją arytmetyczną znajduje jej dokumentacja
+
+## Interfejs:
 
 ![Alt text](EAN-View.png?raw=true "GUI")
