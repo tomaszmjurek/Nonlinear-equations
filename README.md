@@ -1,6 +1,6 @@
 Instrukcja użytkowania:
 
-1. Uruchom ./Win32/Debig/Project1.exe
+1. Uruchom ./Win32/Debug/Project1.exe
 2. Wybierz arytmetykę z której chcesz korzystać
 3. Wybierz z listy odpowiedni plik dll.
 	- musi zgadzać się z wybraną arytmetyką inaczej program zwróci błąd
